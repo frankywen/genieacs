@@ -3,10 +3,10 @@ FROM ruby:2.3
 LABEL author="qm-wen<qm-wen@mygzb.com>"
 
 ENV APP_HOME /app/genieacs-gui
-RUN mkdir $APP_HOME -p
-WORKDIR $APP_HOME
 
-WORKDIR /usr/src
+RUN mkdir $APP_HOME -p
+
+WORKDIR $APP_HOME
 
 ADD . $APP_HOME
 
@@ -23,4 +23,5 @@ RUN if [ -f /app/genieacs-gui/tmp/pids/server.pid ]; then rm /app/genieacs-gui/t
 RUN mv /app/genieacs-gui/config/graphs-sample.json.erb /app/genieacs-gui/config/graphs.json.erb
 
 EXPOSE 3000
+
 CMD ["rails", "s"]
