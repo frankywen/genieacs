@@ -8,8 +8,6 @@ RUN mkdir $APP_HOME -p
 
 WORKDIR $APP_HOME
 
-ADD . $APP_HOME
-
 RUN echo 'for f in /app/genieacs-gui/config/*-sample.yml; do mv "$f" "${f/-sample.yml/.yml}"; done' | bash -
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
