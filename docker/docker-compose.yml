@@ -2,14 +2,14 @@ version: '2.0'
 services:
 
   acs:
-    image: registry.cn-hangzhou.aliyuncs.com/franky/acs
+    image: registry.us-west-1.aliyuncs.com/franky/acs
     ports:
       - "7557:7557"
     volumes:
       - ./acs:/app/genieacs
 
   gui:
-    image: registry.cn-hangzhou.aliyuncs.com/franky/acs-gui
+    image: registry.us-west-1.aliyuncs.com/franky/gui
     ports:
       - "3000:3000"
     volumes:
