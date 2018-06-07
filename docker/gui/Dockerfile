@@ -24,4 +24,4 @@ RUN mv /app/genieacs-gui/config/graphs-sample.json.erb /app/genieacs-gui/config/
 
 EXPOSE 3000
 
-CMD ["rails", "s"]
+CMD ["/app/genieacs-gui/bin/rails", "server"]
