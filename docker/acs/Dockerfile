@@ -16,6 +16,8 @@ WORKDIR $APP_HOME
 
 RUN npm install genieacs
 
+ADD . $APP_HOME
+
 EXPOSE 7557
 
 CMD ["./start.sh"]
