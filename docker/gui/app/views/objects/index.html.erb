@@ -1,0 +1,29 @@
+<%
+content_for :title do 'Object List' end
+%>
+<h1>Listing objects</h1>
+
+<h2>Showing <%= @total %> objects</h2>
+
+<table class="records">
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @objects.each do |object| %>
+  <tr>
+    <td><%= object['_id'] %></td>
+    <td class="action"><%= link_to 'Edit', {:action => :edit, :id => object['_id']} if can?(:update, 'objects') %></td>
+    <td class="action"><%= link_to 'Destroy', {:action => :destroy, :id => object['_id']}, method: :delete, data: { confirm: 'Are you sure?' } if can?(:delete, 'objects') %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= render partial: 'pagination' %>
+
+<br />
+
+<%= link_to 'New object', {:action => :new} if can?(:create, 'objects') %>

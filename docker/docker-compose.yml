@@ -1,0 +1,33 @@
+version: '2.0'
+services:
+
+  # acs:
+  #   image: registry.us-west-1.aliyuncs.com/franky/redis
+      # ports:
+      #   - "7557:7557"
+      # volumes:
+      #   - ./acs:/app/genieacs
+
+  # gui:
+  #   image: registry.us-west-1.aliyuncs.com/franky/mysql
+      # ports:
+      #   - "3000:3000"
+      # volumes:
+      #   - ./acs:/app/genieacs-gui
+
+
+    
+  acs:
+    build: ./acs
+    ports:
+      - "7557:7557"
+    volumes:
+      - ./acs:/app/genieacs
+
+  gui:
+    build: ./gui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./acs:/app/genieacs-gui
+

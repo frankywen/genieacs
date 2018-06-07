@@ -1,0 +1,46 @@
+<table class="records">
+<tr>
+<% for k, v in params %>
+  <% next if k[0] == '_' %>
+  <th><%= k %></th>
+<% end %>
+</tr>
+
+<% if object %>
+<% for k, v in object %>
+  <% next if k[0] == '_' %>
+  <tr>
+  <% for k2, v2 in params %>
+    <% next if k2[0] == '_' %>
+    <% if not v2.is_a?(String) %>
+      <% (child_obj = v2.dup)['_object'] = "#{params['_object']}.#{k}.#{child_obj['_object']}" %>
+      <td>
+        <%= render partial: 'object_table', locals: {params: child_obj, object: get_param(child_obj['_object'], @device)} %>
+      </td>
+      <% next %>
+    <% end %>
+    <td class="action">
+      <%= param_value("#{params['_object']}.#{k}.#{v2}", @device) rescue '' %>
+      <% v3 = get_param(v2, v) %>
+      <% if v3 && v3['_writable'] %>
+      <% options = Rails.configuration.parameters_edit["#{params['_object']}.#{k}.#{v2}".gsub(/\.\d+\./, '..')] %>
+      <a href="#" onclick='editParam("<%= "#{params['_object']}.#{k}.#{v2}" %>", "<%= v3['_type'] %>", "<%= v3['_value'] %>", <%= options.to_json.html_safe %>);return false;'>Edit</a>
+      <% end %>
+    </td>
+  <% end %>
+  <% if v['_writable'] %>
+    <td class="action">
+      <a href="#" onclick="deleteObject('<%= "#{params['_object']}.#{k}" %>');return false;">Delete</a>
+    </td>
+  <% end %>
+  </tr>
+<% end %>
+<% if object['_writable'] %>
+<tr>
+  <td colspan="0">
+    <a href="#" onclick="addObject('<%= params['_object'] %>');return false;">Add</a>
+  </td>
+</tr>
+<% end %>
+<% end %>
+</table>

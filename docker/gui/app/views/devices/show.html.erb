@@ -1,0 +1,52 @@
+<%
+can_edit_parameters = can?(:update, 'devices/parameters')
+content_for :title do 'Device ' + @device['_id'] end
+%>
+<script type="text/javascript">
+$(function() {
+  clearPending();
+
+  var options = {
+    valueNames: ['param-path', 'param-value'],
+    page: 4000
+  };
+
+  var featureList = new List('device-params', options);
+});
+</script>
+
+<h1>Device: <%= @device['_id'] %></h1>
+
+<%= render partial: 'tags', locals: {tags: @device['_tags'] || []} %>
+
+<%
+  to_refresh = {'parameters' => [], 'objects' => [], 'custom_commands' => []}
+
+  for k, v in Rails.configuration.summary_parameters
+    v.each do |vv|
+      if vv.is_a?(String)
+        to_refresh['parameters'] << vv
+      else
+        to_refresh['objects'] << vv['_object']
+      end
+    end
+  end
+%>
+<%= render partial: 'last_inform', locals: {to_refresh: to_refresh} %>
+<%= render partial: 'summary_group', locals: {can_edit_parameters: can_edit_parameters, params: Rails.configuration.summary_parameters} %>
+<%= render partial: 'tasks' %>
+
+<div style="clear:both;"></div>
+
+<%= render partial: 'params', locals: {can_edit_parameters: can_edit_parameters} %>
+<%= render partial: 'commands' %>
+
+<div id="pending">
+  <h>Pending tasks</h>
+  <ul>
+  </ul>
+  <div class="buttons">
+    <a class="button" href="#" onclick="commitPending();return false;">Commit</a>
+    <a href="#" onclick="clearPending();return false;">Cancel</a>
+  </div>
+</div>

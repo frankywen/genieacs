@@ -1,0 +1,30 @@
+<%
+content_for :title do 'Home' end
+%>
+<% @graphs.each do |group_name, group_graphs| %>
+<h1><%= group_name.humanize %></h1>
+<table style="margin-left:auto;margin-right:auto;">
+  <tr>
+  <% group_graphs.each do |graph_name, graph| %>
+    <td style="padding:0 40px;">
+      <h2 style="text-align:center;"><%= graph_name.humanize %></h2>
+      <div id="<%= group_name %>_<%= graph_name %>"></div>
+    </td>
+  <% end %>
+  </tr>
+</table>
+<% end %>
+<script type="text/javascript">
+$(function() {
+  // Skip if Turbolinks preview
+  if (document.documentElement.hasAttribute("data-turbolinks-preview"))
+    return;
+
+<% @graphs.each do |group_name, group_graphs| %>
+  <% group_graphs.each do |graph_name, graph| %>
+  pieChart("<%= group_name %>_<%= graph_name %>", 200, <%= ActiveSupport::JSON.encode(graph).html_safe %>);
+  <% end %>
+<% end %>
+});
+</script>
+

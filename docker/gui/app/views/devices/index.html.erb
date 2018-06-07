@@ -1,0 +1,70 @@
+<%
+  param_names = Rails.configuration.index_parameters
+
+  sort_param = params[:sort].start_with?('-') ? params[:sort][1..-1] : params[:sort] rescue nil
+  sort_symbol = params[:sort].start_with?('-') ? ' &#9650;' : ' &#9660;' rescue nil
+  content_for :title do 'Devices List' end
+%>
+<h1>Listing devices</h1>
+<script type="text/javascript">
+filters = {
+<% for k,v in Rails.configuration.device_filters %>
+  <% for vv in v %>
+  '<%= vv %>' : '<%= if v.length == 1 then k else vv end %>',
+  <% end %>
+<% end %>
+}
+</script>
+<b>Filters</b>
+<form id="filters" onsubmit="updateFilters('filters');" >
+  <input type="hidden" name="query" value='<%= @query.to_json %>' />
+  <input type="hidden" name="sort" value="<%= params[:sort] %>" />
+  <div class="filters_container"></div>
+  <div class="filter_selection"></div>
+  <br/><br/>
+  <div>
+    <input type="submit" value="Filter" />
+    <%= link_to 'Clear', {} %>
+  </div>
+</form>
+
+<h2>Showing <%= @total %> devices</h2>
+<table class="records">
+  <tr>
+    <% param_names.each do |label, paths| %>
+      <th><a href="#" class="action" onclick="sort('filters', '<%= paths[0] %>');return false;"><%= label %><%= sort_symbol.html_safe if sort_param == paths[0] %></a></th>
+    <% end %>
+    <th><a href="#" class="action" onclick="sort('filters', '_lastInform');return false;">Last inform<%= sort_symbol.html_safe if sort_param == '_lastInform' %></a></th>
+    <th></th>
+  </tr>
+
+<% @devices.each do |device| %>
+  <tr>
+    <% param_names.each do |label, paths| %>
+      <%
+        value = nil
+        for path in paths
+          value = param_value(path, device)
+          break if value != nil
+        end
+      %>
+      <td><%= value %></td>
+    <% end %>
+    <td>
+      <% cls = 'status-green' if (@now - device['_lastInform'].to_time) < 300 %>
+      <span class="<%= cls %>" title="<%=device['_lastInform'].to_time.in_time_zone%>"><%= distance_of_time_in_words(@now, device['_lastInform'], include_seconds: true) %> ago</span>
+    </td>
+    <td class="action"><%= link_to 'Show', {:action => :show, :id => device['_id']} %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= render partial: 'pagination' %>
+
+<%= link_to 'Download', params.permit(:query).merge(:format => :csv) %>
+
+<script type="text/javascript">
+$(function() {
+  initFilters('filters');
+});
+</script>

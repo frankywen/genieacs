@@ -1,0 +1,64 @@
+<script type="text/javascript">
+filters = {
+  <% for k,v in Rails.configuration.device_filters %>
+    <% for vv in v %>
+    '<%= vv %>' : '<%= if v.length == 1 then k else vv end %>',
+    <% end %>
+  <% end %>
+}
+</script>
+
+<%= form_tag({:action => :update}, :onsubmit => 'updateFilters("precondition");updateConfigurations("configurations");') do %>
+<div class="field">
+  <label for="name">Name</label><br />
+  <input id="name" name="name" type="text" <%= 'readonly' if @preset.include? '_id' %> value="<%= @preset['_id'] %>" />
+</div>
+<br/>
+<div class="field">
+  <label for="channel">Channel</label><br />
+  <input id="channel" name="channel" type="text" value="<%= @preset['channel'] %>" />
+</div>
+<br/>
+<div class="field">
+  <label for="weight">Weight</label><br />
+  <input id="weight" name="weight" type="text" value="<%= @preset['weight'] or 0 %>" />
+</div>
+<br/>
+<div class="field">
+   <label for="schedule">Schedule</label><br />
+   <input id="schedule" name="schedule" type="text" value="<%= @preset['schedule'] %>" placeholder="e.g. &quot;3600 0 3 * * 1-5&quot;" />
+</div>
+<br/>
+<div class="field">
+  <label for="events">Events</label><br />
+  <input id="events" name="events" type="text" value="<%= events_to_string(@preset['events']) %>" placeholder="e.g. &quot;1 BOOT, -0 BOOTSTRAP&quot;" />
+</div>
+<h2>Precondition</h2>
+<div id="precondition">
+  <% precondition = @preset['precondition'].is_a?(Hash) ? @preset['precondition'].to_json : @preset['precondition'] %>
+  <input type="hidden" name="query" value='<%= precondition || '{}' %>' />
+  <div class="filters_container"></div>
+  <div class="filter_selection"></div>
+</div>
+
+
+<h2>Configurations</h2>
+<div id="configurations">
+  <input type="hidden" name="configurations" value='<%= (@preset['configurations'] || {}).to_json %>' />
+  <div class="configurations_container"></div>
+  <div class="filter_selection configurations_selection"></div>
+</div>
+
+
+<br/>
+<div class="actions">
+  <input type="submit" value="Save" />
+</div>
+<% end %>
+
+<script type="text/javascript">
+$(function() {
+  initFilters('precondition');
+  initConfigurations('configurations');
+});
+</script>

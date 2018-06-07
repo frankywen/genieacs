@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= content_for?(:title) ? yield(:title) +' - ' : yield('') %>GenieACS</title>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <%= favicon_link_tag 'favicon.png', type: 'image/png' %>
+</head>
+<body>
+<div id="header">
+  <div id="user_menu" style="float: right; margin: 5px;">
+    <% if logged_in? %>
+      <%= current_user %> | <%= link_to 'Log out', log_out_path %>
+    <% else %>
+      <%= link_to 'Log in', log_in_path %>
+    <% end %>
+  </div>
+  <%= image_tag('logo.png', class: 'logo') %>
+  <%= render 'layouts/menu' %>
+</div>
+
+<div id="content">
+<%- flash.each do |k, v| %>
+  <div class="flash <%= k %>"><%= v %></div>
+<% end %>
+
+<%= yield %>
+</div>
+</body>
+</html>

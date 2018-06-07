@@ -1,0 +1,27 @@
+<%= form_tag({:action => :update}) do %>
+<div class="field">
+  <label for="name">Name</label><br />
+  <input id="name" name="name" type="text" <%= 'readonly' if @virtual_parameter.include? '_id' %> value="<%= @virtual_parameter['_id'] %>" />
+</div>
+
+<br/>
+<div class="field">
+  <label for="weight">Script</label><br />
+  <textarea id="script" name="script" cols="80" rows="24"><%= h @virtual_parameter['script'] %></textarea>
+</div>
+
+<br/>
+<div class="actions">
+  <input type="submit" value="Save" />
+</div>
+<% end %>
+
+<script type="text/javascript">
+$(function() {
+  // Skip if Turbolinks preview
+  if (document.documentElement.hasAttribute("data-turbolinks-preview"))
+    return;
+
+  CodeMirror.fromTextArea(document.getElementById("script"), {mode: "javascript", lineNumbers: true});
+});
+</script>

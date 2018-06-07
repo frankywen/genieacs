@@ -1,0 +1,37 @@
+<%
+content_for :title do 'Preset List' end
+%>
+<h1>Listing presets</h1>
+
+<h2>Showing <%= @total %> presets</h2>
+
+<table class="records">
+  <tr>
+    <th>Name</th>
+    <th>Channel</th>
+    <th>Weight</th>
+    <th>Events</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @presets.each do |preset| %>
+  <% precondition = preset['precondition'].is_a?(Hash) ? preset['precondition'].to_json : preset['precondition'] %>
+  <tr>
+    <td><%= preset['_id'] %></td>
+    <td><%= preset['channel'] %></td>
+    <td><%= preset['weight'] %></td>
+    <td><%= events_to_string(preset['events']) %></td>
+    <td class="action"><%= link_to 'Devices', {controller: 'devices', action: 'index', query: precondition || '{}'} %></td>
+    <td class="action"><%= link_to 'Edit', {controller: 'presets', action: 'edit', id: preset['_id']} if can?(:update, 'presets') %></td>
+    <td class="action"><%= link_to 'Destroy', {controller: 'presets', action: 'destroy', id: preset['_id']}, method: :delete, data: { confirm: 'Are you sure?' } if can?(:delete, 'presets') %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= render partial: 'pagination' %>
+
+<br />
+
+<%= link_to 'New Preset', {:action => :new} if can?(:create, 'presets') %>

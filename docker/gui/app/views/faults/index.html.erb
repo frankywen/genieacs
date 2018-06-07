@@ -1,0 +1,63 @@
+<%
+can_retry = can?(:update, 'tasks/retry')
+can_delete = can?(:delete, 'tasks')
+content_for :title do 'Fault List' end
+%>
+<h1>Listing faults</h1>
+
+<script type="text/javascript">
+filters = {
+  'device' : 'Device',
+  'channel' : 'Channel',
+  'retries' : 'Retries',
+  'timestamp' : 'Timestamp'
+}
+</script>
+<b>Filters</b>
+<form id="filters" onsubmit="updateFilters('filters');" >
+  <input type="hidden" name="query" value='<%= @query.to_json %>' />
+  <input type="hidden" name="sort" value="<%= params[:sort] %>" />
+  <div class="filters_container"></div>
+  <div class="filter_selection"></div>
+  <br/><br/>
+  <div>
+    <input type="submit" value="Filter" />
+    <%= link_to "Clear", {} %>
+  </div>
+</form>
+
+
+<h2>Showing <%= @total %> faults</h2>
+<table class="records">
+  <tr>
+    <th>Device</th>
+    <th>Channel</th>
+    <th>Code</th>
+    <th>Message</th>
+    <th>Detail</th>
+    <th>Retries</th>
+    <th>Date</th>
+    <th></th>
+  </tr>
+
+<% @faults.each do |fault| %>
+  <tr>
+    <td><%= link_to fault['device'], {:controller => :devices, :action => :show, :id => fault['device']} %></td>
+    <td><%= fault['channel'] %></td>
+    <td><%= fault['code'] %></td>
+    <td><%= fault['message'] %></td>
+    <td class="long-text-always"><%= fault_detail(fault) %></td>
+    <td><%= fault['retries'] %></td>
+    <td><%= fault['timestamp'].to_time().in_time_zone() %></td>
+    <td class="action"><%= link_to 'Destroy', {:action => :destroy, :id => fault['_id']}, method: :delete, data: { confirm: 'Are you sure?' } if can_delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= render partial: 'pagination' %>
+
+<script type="text/javascript">
+$(function() {
+  initFilters('filters');
+});
+</script>
