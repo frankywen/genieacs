@@ -3,17 +3,17 @@ services:
 
   acs:
     image: registry.cn-hangzhou.aliyuncs.com/franky/acs
-      ports:
-        - "7557:7557"
-      volumes:
-        - ./acs:/app/genieacs
+    ports:
+      - "7557:7557"
+    volumes:
+      - ./acs:/app/genieacs
 
   gui:
     image: registry.cn-hangzhou.aliyuncs.com/franky/acs-gui
-      ports:
-        - "3000:3000"
-      volumes:
-        - ./acs:/app/genieacs-gui
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./acs:/app/genieacs-gui
 
 
     
