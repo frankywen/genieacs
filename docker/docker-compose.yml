@@ -8,12 +8,12 @@ services:
       volumes:
         - ./acs:/app/genieacs
 
-  # gui:
-  #   image: registry.us-west-1.aliyuncs.com/franky/mysql
-      # ports:
-      #   - "3000:3000"
-      # volumes:
-      #   - ./acs:/app/genieacs-gui
+  gui:
+    image: registry.cn-hangzhou.aliyuncs.com/franky/acs-gui
+      ports:
+        - "3000:3000"
+      volumes:
+        - ./acs:/app/genieacs-gui
 
 
     
