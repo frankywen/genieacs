@@ -10,17 +10,17 @@ WORKDIR /usr/src
 
 ADD . $APP_HOME
 
-RUN echo 'for f in /app/config/*-sample.yml; do mv "$f" "${f/-sample.yml/.yml}"; done' | bash -
+RUN echo 'for f in /app/genieacs-gui/config/*-sample.yml; do mv "$f" "${f/-sample.yml/.yml}"; done' | bash -
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 	apt-get install -y nodejs && \
-	cd /app && \
+	cd /app/genieacs-gui && \
 	RAILS_ENV=production bundle && \
 	RAILS_ENV=production bundle exec rake assets:precompile
 
-RUN if [ -f /app/tmp/pids/server.pid ]; then rm /app/tmp/pids/server.pid; fi
+RUN if [ -f /app/genieacs-gui/tmp/pids/server.pid ]; then rm /app/genieacs-gui/tmp/pids/server.pid; fi
 
-RUN mv /app/config/graphs-sample.json.erb /app/config/graphs.json.erb
+RUN mv /app/genieacs-gui/config/graphs-sample.json.erb /app/genieacs-gui/config/graphs.json.erb
 
 EXPOSE 3000
 CMD ["rails", "s"]
