@@ -16,7 +16,7 @@ WORKDIR $APP_HOME
 
 RUN npm install genieacs
 
-ADD . $APP_HOME
+# ADD . $APP_HOME
 
 EXPOSE 7557
 

@@ -9,4 +9,4 @@ if [-f /app/genieacs-gui/config/graphs-sample.json.erb]
 fi
 
 echo "Start enieacs-gui"
-/app/genieacs-gui/bin/rails
+/app/genieacs-gui/bin/rails server
