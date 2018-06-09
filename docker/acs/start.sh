@@ -11,7 +11,7 @@ cd /app/genieacs && npm run compile
 
 if [ -f /app/genieacs/config/config-sample.json ]; then
   echo "mv config-sample.json to config.json"
-  mv /app/genieacs/config/graphs-sample.json.erb /app/genieacs/config/config.json
+  mv /app/genieacs/config/config-sample.json /app/genieacs/config/config.json
 fi
 
 echo "Start genieace-nbi"
