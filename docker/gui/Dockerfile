@@ -27,5 +27,5 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 
 EXPOSE 3000
 
-CMD ["./start.sh"]
+CMD ["bash ./start.sh"]
 # CMD ["/app/genieacs-gui/bin/rails", "server"]

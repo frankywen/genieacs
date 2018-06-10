@@ -1,9 +1,8 @@
 #!/bin/sh
-echo "mv samply.yml to .yml"
-
-for f in /app/genieacs-gui/config/*-sample.yml;
-do
-    mv "$f" "${f/-sample.yml/.yml}"
+for f in `ls /app/genieacs-gui/config/*-sample.yml`
+do 
+  echo "mv samply.yml to .yml"
+  mv "$f" "${f/-sample.yml/.yml}"
 done
 
 if [ -f /app/genieacs-gui/config/graphs-sample.json.erb ]; then
