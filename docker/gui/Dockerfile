@@ -18,6 +18,7 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 	apt-get install -y nodejs && \
 	cd /app/genieacs-gui && \
 	RAILS_ENV=production bundle && \
+	gem install rake -v=11.2.2 && \
 	RAILS_ENV=production bundle exec rake assets:precompile
 
 # RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
