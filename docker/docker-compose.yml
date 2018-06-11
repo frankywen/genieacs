@@ -4,7 +4,9 @@ services:
   acs:
     image: registry.us-west-1.aliyuncs.com/franky/acs
     ports:
+      - "7547:7547"
       - "7557:7557"
+      - "7567:7567"
     volumes:
       - ./acs:/app/genieacs
 
@@ -14,6 +16,7 @@ services:
       - "3000:3000"
     volumes:
       - ./gui:/app/genieacs-gui
+    command: bash ./start.sh
 
 
     

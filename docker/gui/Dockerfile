@@ -12,14 +12,14 @@ WORKDIR $APP_HOME
 
 # RUN echo 'for f in /app/genieacs-gui/config/*-sample.yml; do mv "$f" "${f/-sample.yml/.yml}"; done' | bash -
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-	apt-get install -y nodejs
-
 # RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
-# 	apt-get install -y nodejs && \
-# 	cd /app/genieacs-gui && \
-# 	RAILS_ENV=production bundle && \
-# 	RAILS_ENV=production bundle exec rake assets:precompile
+# 	apt-get install -y nodejs
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
+	apt-get install -y nodejs && \
+	cd /app/genieacs-gui && \
+	RAILS_ENV=production bundle && \
+	RAILS_ENV=production bundle exec rake assets:precompile
 
 # RUN if [ -f /app/genieacs-gui/tmp/pids/server.pid ]; then rm /app/genieacs-gui/tmp/pids/server.pid; fi
 
@@ -27,5 +27,5 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 
 EXPOSE 3000
 
-CMD ["bash ./start.sh"]
+CMD ["bash", "./start.sh"]
 # CMD ["/app/genieacs-gui/bin/rails", "server"]
