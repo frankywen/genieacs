@@ -12,6 +12,7 @@ ADD ./Gemfile $APP_HOME/Gemfile
 ADD ./Gemfile.lock $APP_HOME/Gemfile.lock
 ADD ./Rakefile $APP_HOME/Rakefile
 ADD ./config/application.rb $APP_HOME/config/application.rb
+ADD ./config/boot.rb $APP_HOME/config/boot.rb
 # ADD . $APP_HOME
 
 # RUN echo 'for f in /app/genieacs-gui/config/*-sample.yml; do mv "$f" "${f/-sample.yml/.yml}"; done' | bash -
