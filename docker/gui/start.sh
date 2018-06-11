@@ -2,8 +2,6 @@
 chmod -R 755 *
 
 if [ -f /app/genieacs-gui/init.lock ]; then
-  echo "set RAILS_ENV production bundle"
-  cd /app/genieacs-gui && RAILS_ENV=production bundle && RAILS_ENV=production bundle exec rake assets:precompile
   echo "Initialization"
 else 
   for f in `ls /app/genieacs-gui/config/*-sample.yml`
