@@ -8,14 +8,17 @@ RUN mkdir $APP_HOME -p
 
 WORKDIR $APP_HOME
 
+ADD ./Gemfile $APP_HOME/Gemfile
+ADD ./Gemfile.lock $APP_HOME/Gemfile.lock
 # ADD . $APP_HOME
 
 # RUN echo 'for f in /app/genieacs-gui/config/*-sample.yml; do mv "$f" "${f/-sample.yml/.yml}"; done' | bash -
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 	apt-get install -y nodejs && \
-	gem install rake -v=11.2.2 && \
-	gem install concurrent-ruby -v=1.0.2
+	cd /app/genieacs-gui && \
+	RAILS_ENV=production bundle && \
+	RAILS_ENV=production bundle exec rake assets:precompile
 
 # RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 # 	apt-get install -y nodejs && \
