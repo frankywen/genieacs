@@ -10,6 +10,8 @@ WORKDIR $APP_HOME
 
 ADD ./Gemfile $APP_HOME/Gemfile
 ADD ./Gemfile.lock $APP_HOME/Gemfile.lock
+ADD ./Rakefile $APP_HOME/Rakefile
+
 # ADD . $APP_HOME
 
 # RUN echo 'for f in /app/genieacs-gui/config/*-sample.yml; do mv "$f" "${f/-sample.yml/.yml}"; done' | bash -
@@ -18,7 +20,6 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 	apt-get install -y nodejs && \
 	cd /app/genieacs-gui && \
 	RAILS_ENV=production bundle && \
-	gem install rake -v=11.2.2 && \
 	RAILS_ENV=production bundle exec rake assets:precompile
 
 # RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
