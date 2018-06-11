@@ -14,7 +14,8 @@ WORKDIR $APP_HOME
 
 RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 	apt-get install -y nodejs && \
-	gem install rake -v=11.2.2
+	gem install rake -v=11.2.2 && \
+	gem install concurrent-ruby -v=1.0.2
 
 # RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - && \
 # 	apt-get install -y nodejs && \
