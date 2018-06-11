@@ -14,5 +14,11 @@ if [ -f /app/genieacs/config/config-sample.json ]; then
   mv /app/genieacs/config/config-sample.json /app/genieacs/config/config.json
 fi
 
+echo "Start genieacs-cwmp"
+/app/genieacs/bin/genieacs-cwmp
+
 echo "Start genieace-nbi"
 /app/genieacs/bin/genieacs-nbi
+
+echo "Start genieacs-fs"
+/app/genieacs/bin/genieacs-fs

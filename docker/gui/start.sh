@@ -23,11 +23,5 @@ else
   touch /app/genieacs-gui/init.lock
 fi
 
-echo "Start genieacs-cwmp"
-/app/genieacs/bin/genieacs-cwmp
-
-echo "Start genieace-nbi"
-/app/genieacs/bin/genieacs-nbi
-
-echo "Start genieacs-fs"
-/app/genieacs/bin/genieacs-fs
+echo "Start enieacs-gui"
+/app/genieacs-gui/bin/rails server
