@@ -16,10 +16,11 @@ else
   fi
 
   echo "set RAILS_ENV production bundle"
-  cd /app/genieacs-gui && RAILS_ENV=production bundle && RAILS_ENV=production bundle exec rake assets:precompile
+  # cd /app/genieacs-gui && RAILS_ENV=production bundle && RAILS_ENV=production bundle exec rake assets:precompile
+  cd /app/genieacs-gui && RAILS_ENV=production bundle exec rake assets:precompile
 
   echo "run bundle install"
-  cd /app/genieacs-gui && bundle install
+  # cd /app/genieacs-gui && bundle install
   touch /app/genieacs-gui/init.lock
 fi
 
