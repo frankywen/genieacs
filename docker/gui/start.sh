@@ -1,6 +1,10 @@
 #!/bin/sh
 chmod -R 755 *
 
+if [ -f /app/genieacs-gui/tmp/pids/server.pid ]; then 
+  rm /app/genieacs-gui/tmp/pids/server.pid; 
+fi
+
 if [ -f /app/genieacs-gui/init.lock ]; then
   echo "Initialization"
 else 

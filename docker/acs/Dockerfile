@@ -18,6 +18,7 @@ RUN npm install genieacs
 
 # ADD . $APP_HOME
 
+EXPOSE 7547
 EXPOSE 7557
-
+EXPOSE 7567
 CMD ["./start.sh"]
