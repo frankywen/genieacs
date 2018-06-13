@@ -29,4 +29,4 @@ else
 fi
 
 echo "Start enieacs-gui"
-/app/genieacs-gui/bin/rails server
+/app/genieacs-gui/bin/rails server  -b 0.0.0.0

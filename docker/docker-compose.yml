@@ -14,9 +14,11 @@ services:
     image: registry.us-west-1.aliyuncs.com/franky/gui
     ports:
       - "3000:3000"
+    links:
+      - acs:genieacsnbi.com
     volumes:
       - ./gui:/app/genieacs-gui
-    command: bash ./start.sh
+    command: bash /app/genieacs-gui/start.sh
 
   # acs:
   # image: registry.cn-hangzhou.aliyuncs.com/franky/acs
