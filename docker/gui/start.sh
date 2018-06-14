@@ -28,5 +28,8 @@ else
   touch /app/genieacs-gui/init.lock
 fi
 
+echo "db migrate"
+/app/genieacs-gui/bin/rails db:migrate
+
 echo "Start enieacs-gui"
 /app/genieacs-gui/bin/rails server  -b 0.0.0.0
