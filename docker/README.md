@@ -2,6 +2,13 @@
 This is for genieacs, genieacs-gui run environment
 
 ## Quick Start
+```
+git clone git@github.com:frankywen/genieacs.git
+cd genieacs/docker/
+chmod -R 755 acs/start.sh
+chmod -R 755 gui/start.sh
+```
+
 start
 ```
 docker-compose up -d
@@ -34,5 +41,5 @@ gui server address
 ip:3000
 ```
 
-
-
+## ACS API Reference
+[API Reference](https://github.com/genieacs/genieacs/wiki/API-Reference)
