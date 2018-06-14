@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,31 +12,30 @@
 
 ActiveRecord::Schema.define(version: 20160219094206) do
 
-  create_table "privileges", force: true do |t|
+  create_table "privileges", force: :cascade do |t|
     t.string   "action"
     t.integer  "weight"
     t.text     "resource"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role_id"
+    t.index ["role_id"], name: "index_privileges_on_role_id"
   end
 
-  add_index "privileges", ["role_id"], name: "index_privileges_on_role_id"
-
-  create_table "roles", force: true do |t|
+  create_table "roles", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "user_roles", force: true do |t|
+  create_table "user_roles", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password"
     t.datetime "created_at"

@@ -1,8 +1,28 @@
 version: '2.0'
 services:
 
+  # acs:
+  #   image: registry.us-west-1.aliyuncs.com/franky/acs
+  #   ports:
+  #     - "7547:7547"
+  #     - "7557:7557"
+  #     - "7567:7567"
+  #   volumes:
+  #     - ./acs:/app/genieacs
+
+  # gui:
+  #   image: registry.us-west-1.aliyuncs.com/franky/gui
+  #   ports:
+  #     - "3000:3000"
+  #   links:
+  #     - acs:genieacsnbi.com
+  #   volumes:
+  #     - ./gui:/app/genieacs-gui
+  #   command: bash /app/genieacs-gui/start.sh
+
+
   acs:
-    image: registry.us-west-1.aliyuncs.com/franky/acs
+    image: registry.cn-hangzhou.aliyuncs.com/franky/acs
     ports:
       - "7547:7547"
       - "7557:7557"
@@ -11,7 +31,7 @@ services:
       - ./acs:/app/genieacs
 
   gui:
-    image: registry.us-west-1.aliyuncs.com/franky/gui
+    image: registry.cn-hangzhou.aliyuncs.com/franky/acs-gui
     ports:
       - "3000:3000"
     links:
@@ -19,37 +39,3 @@ services:
     volumes:
       - ./gui:/app/genieacs-gui
     command: bash /app/genieacs-gui/start.sh
-
-  # acs:
-  # image: registry.cn-hangzhou.aliyuncs.com/franky/acs
-  # ports:
-  #   - "7547:7547"
-  #   - "7557:7557"
-  #   - "7567:7567"
-  # volumes:
-  #   - ./acs:/app/genieacs
-
-  # gui:
-  #   image: registry.cn-hangzhou.aliyuncs.com/franky/acs-gui
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./gui:/app/genieacs-gui
-  #   command: bash ./start.sh
-
-
-    
-  # acs:
-  #   build: ./acs
-  #   ports:
-  #     - "7557:7557"
-  #   volumes:
-  #     - ./acs:/app/genieacs
-
-  # gui:
-  #   build: ./gui
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./acs:/app/genieacs-gui
-
