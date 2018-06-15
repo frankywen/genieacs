@@ -38,6 +38,7 @@
     "compile": "coffee -cb lib/*.coffee",
     "configure": "cp -n ./config/config-sample.json ./config/config.json",
     "install": "npm run configure",
-    "test": "node test"
+    "test": "node test",
+    "watch": "coffee -o lib -c -w lib/*.coffee"
   }
 }
