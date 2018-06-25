@@ -45,6 +45,12 @@ ip:3000
 ```
 query example
 
-http://localhost:7557/devices/?query={%22_id%22:%22001565-SIP%252DT22P-00156546699d%22}
+http://localhost:7557/devices/?query={"_id":"001565-SIP%2DT22P-00156546699d"}
+
+http://192.168.78.201:7557/devices/?projection="_deviceId,_lastBoot,_lastInform,_registered,_lastBootstrap"&sort={"_registered":-1}&skip=0&limit=10
+
+http://192.168.78.201:7557/tasks/?query={"_id":"5b20cf35e0ec8a4a45e000dc"}
+
+http://192.168.78.201:7557/tasks/?query={"device":"000EB4-IPPBX-00100800GK6100100000000EB40AB0D0"}
 ```
 [API Reference](https://github.com/genieacs/genieacs/wiki/API-Reference)
